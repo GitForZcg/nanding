@@ -21,7 +21,7 @@ public class TestZookeeperApplication
         final CountDownLatch cdl = new CountDownLatch(1);
 
         final ZooKeeper zk = new ZooKeeper("192.168.8.129:2181,192.168.8.130:2181,192.168.8.131:2181,192.168.8.132:2181",
-                3000,
+                20000,
                 new Watcher() {
                     //Watch的回调方法
                     @Override
@@ -149,18 +149,18 @@ public class TestZookeeperApplication
         //下面是否会触发？
         Stat stat2= zk.setData("/ooxx", "newData01".getBytes(), stat1.getVersion());
 
-        //异步的方式
-        System.out.println(" ----------async start ----------" );
-        zk.getData("/ooxx", false, new AsyncCallback.DataCallback() {
-            @Override
-            public void processResult(int rc, String path, Object ctx, byte[] data, Stat stat) {
-                System.out.println(" ----------async call back ----------" );
-                System.out.println("data= " + new String(data));
-                System.out.println("ctx= " + ctx.toString());
-            }
-        },"abc");
-
-        System.out.println("---------- async over----------");
+//        //异步的方式
+//        System.out.println(" ----------async start ----------" );
+//        zk.getData("/ooxx", false, new AsyncCallback.DataCallback() {
+//            @Override
+//            public void processResult(int rc, String path, Object ctx, byte[] data, Stat stat) {
+//                System.out.println(" ----------async call back ----------" );
+//                System.out.println("data= " + new String(data));
+//                System.out.println("ctx= " + ctx.toString());
+//            }
+//        },"abc");
+//
+//        System.out.println("---------- async over----------");
 
 
         Thread.sleep(3000000);
